@@ -7,23 +7,6 @@
             name="description"
             content="Get real-time stock alerts directly on your WhatsApp. Stay ahead of the market with wegro.app."
         />
-        <!-- Google Tag Manager -->
-        <script>
-            (function (w, d, s, l, i) {
-                w[l] = w[l] || [];
-                w[l].push({
-                    "gtm.start": new Date().getTime(),
-                    event: "gtm.js",
-                });
-                var f = d.getElementsByTagName(s)[0],
-                    j = d.createElement(s),
-                    dl = l != "dataLayer" ? "&l=" + l : "";
-                j.async = true;
-                j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-                f.parentNode.insertBefore(j, f);
-            })(window, document, "script", "dataLayer", "GTM-K8M9X6P8");
-        </script>
-        <!-- End Google Tag Manager -->
         <!-- Stylesheets -->
         <meta name="robots" content="index,follow" />
         <link rel="canonical" href="https://wegro.app/" />
@@ -121,16 +104,6 @@
         ></script>
     </head>
     <body>
-        <!-- Google Tag Manager (noscript) -->
-        <noscript
-            ><iframe
-                src="https://www.googletagmanager.com/ns.html?id=GTM-K8M9X6P8"
-                height="0"
-                width="0"
-                style="display: none; visibility: hidden"
-            ></iframe
-        ></noscript>
-        <!-- End Google Tag Manager (noscript) -->
         <div class="page-wrapper">
             <!-- Preloader -->
             <div class="loader-wrap">
@@ -193,7 +166,7 @@
                                 >
                                     <div class="logo-box">
                                         <div class="logo">
-                                            <a href="https://wegro.app/">
+                                            <a href="/index.html">
                                                 <img
                                                     class="logo_new"
                                                     src="images/logo_new.png"
@@ -1730,221 +1703,6 @@
                 },
                 "Please enter a valid mobile number."
             );
-            $(document).ready(function () {
-                function getUrlParameter(sParam) {
-                    var sPageURL = window.location.search.substring(1),
-                        sURLVariables = sPageURL.split("&"),
-                        sParameterName,
-                        i;
-
-                    for (i = 0; i < sURLVariables.length; i++) {
-                        sParameterName = sURLVariables[i].split("=");
-
-                        if (sParameterName[0] === sParam) {
-                            return sParameterName[1] === undefined
-                                ? true
-                                : decodeURIComponent(sParameterName[1]);
-                        }
-                    }
-                    return false;
-                }
-                validator = $("#loginModule").validate({
-                    submitHandler: function (form) {
-                        /*gtag('event', 'click', {
-                    'event_category': 'Button',
-                    'event_label': 'Get Whats App Otp'
-                });*/
-                        grecaptcha
-                            .execute("6Lc9eUkpAAAAACrVpIGXTouVBR5InY-w3bMjbz7Q")
-                            .then(function (token) {
-                                var formData = new FormData(
-                                    $("#loginModule")[0]
-                                );
-                                $inputObj = $(".txt_csrfname");
-                                $ref = getUrlParameter("ref");
-                                formData.append(
-                                    $inputObj.attr("name"),
-                                    $inputObj.val()
-                                );
-                                formData.append("g-recaptcha-response", token);
-                                formData.append("ref", $ref);
-                                /*formData.append('termsAndConditions',1);*/
-                                $.ajax({
-                                    url: base_url + "login",
-                                    type: "POST",
-                                    data: formData,
-                                    async: false,
-                                    cache: false,
-                                    contentType: false,
-                                    processData: false,
-                                    success: function (result) {
-                                        if (result) {
-                                            var data = jQuery.parseJSON(result);
-                                        } else {
-                                            data = {
-                                                status: "fail",
-                                                message: "Something went wrong",
-                                            };
-                                        }
-                                        if (data.status == "success") {
-                                            $(".form-validate")[0].reset();
-                                            validator.resetForm();
-                                            if (data.referredBy == 0) {
-                                                window.location =
-                                                    base_url + "validateOtp";
-                                            } else {
-                                                window.location =
-                                                    base_url +
-                                                    "validateOtp?refBy=" +
-                                                    data.referredBy;
-                                            }
-                                        } else if (data.status == "error") {
-                                            if (data.errorfields) {
-                                                $.each(
-                                                    data.errorfields,
-                                                    function () {
-                                                        $.each(
-                                                            this,
-                                                            function (
-                                                                name,
-                                                                value
-                                                            ) {
-                                                                customPnotify(
-                                                                    "error",
-                                                                    value
-                                                                );
-                                                            }
-                                                        );
-                                                    }
-                                                );
-                                            } else {
-                                                if (
-                                                    data.type &&
-                                                    data.type == "exception"
-                                                ) {
-                                                    data["message"] =
-                                                        "Something went wrong, please try again.";
-                                                }
-                                                customPnotify(
-                                                    "error",
-                                                    data.message
-                                                );
-                                            }
-                                        } else {
-                                            customPnotify(
-                                                "error",
-                                                data.message
-                                            );
-                                        }
-                                    },
-                                }).fail(function () {
-                                    var message =
-                                        "Oops! 500 Internal Server Error occured try again";
-                                    var error = "error";
-                                    customPnotify(error, message);
-                                });
-                            });
-                    },
-                });
-                validator = $("#loginModule1").validate({
-                    submitHandler: function (form) {
-                        /*gtag('event', 'click', {
-                    'event_category': 'Button',
-                    'event_label': 'Get Whats App Otp'
-                });*/
-                        grecaptcha
-                            .execute("6Lc9eUkpAAAAACrVpIGXTouVBR5InY-w3bMjbz7Q")
-                            .then(function (token) {
-                                var formData = new FormData(
-                                    $("#loginModule1")[0]
-                                );
-                                $inputObj = $(".txt_csrfname");
-                                $ref = getUrlParameter("ref");
-                                formData.append(
-                                    $inputObj.attr("name"),
-                                    $inputObj.val()
-                                );
-                                formData.append("g-recaptcha-response", token);
-                                formData.append("ref", $ref);
-                                /*formData.append('termsAndConditions',1);*/
-                                $.ajax({
-                                    url: base_url + "login",
-                                    type: "POST",
-                                    data: formData,
-                                    async: false,
-                                    cache: false,
-                                    contentType: false,
-                                    processData: false,
-                                    success: function (result) {
-                                        if (result) {
-                                            var data = jQuery.parseJSON(result);
-                                        } else {
-                                            data = {
-                                                status: "fail",
-                                                message: "Something went wrong",
-                                            };
-                                        }
-                                        if (data.status == "success") {
-                                            $(".form-validate")[0].reset();
-                                            validator.resetForm();
-                                            if (data.referredBy == 0) {
-                                                window.location =
-                                                    base_url + "validateOtp";
-                                            } else {
-                                                window.location =
-                                                    base_url +
-                                                    "validateOtp?refBy=" +
-                                                    data.referredBy;
-                                            }
-                                        } else if (data.status == "error") {
-                                            if (data.errorfields) {
-                                                $.each(
-                                                    data.errorfields,
-                                                    function () {
-                                                        $.each(
-                                                            this,
-                                                            function (
-                                                                name,
-                                                                value
-                                                            ) {
-                                                                customPnotify(
-                                                                    "error",
-                                                                    value
-                                                                );
-                                                            }
-                                                        );
-                                                    }
-                                                );
-                                            } else {
-                                                if (
-                                                    data.type &&
-                                                    data.type == "exception"
-                                                ) {
-                                                    data["message"] =
-                                                        "Something went wrong, please try again.";
-                                                }
-                                                customPnotify(
-                                                    "error",
-                                                    data.message
-                                                );
-                                            }
-                                        } else {
-                                            customPnotify(
-                                                "error",
-                                                data.message
-                                            );
-                                        }
-                                    },
-                                }).fail(function () {
-                                    var message =
-                                        "Oops! 500 Internal Server Error occured try again";
-                                    var error = "error";
-                                    customPnotify(error, message);
-                                });
-                            });
-                    },
-                });
-            });
         </script>
     </body>
 </html>
